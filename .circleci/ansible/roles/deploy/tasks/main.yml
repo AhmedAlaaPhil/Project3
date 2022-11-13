@@ -1,10 +1,4 @@
 ---
-- name: "evn var"
-  become: yes
-  copy:
-    src: myenv.sh
-    dest: /etc/profile.d/
-
 - name: "Creates backend dir"
   file:
     path: ~/backend-app
