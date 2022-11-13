@@ -316,8 +316,6 @@ jobs:
            echo tsc --version
       - add_ssh_keys:
           fingerprints: ["7b:24:6a:c4:2e:2e:d4:4b:52:49:0b:19:de:90:af:59"] 
-      - attach_workspace:
-          at: ~/
       - run:
           name: Package Backend
           command: |
@@ -325,7 +323,9 @@ jobs:
             npm i
             npm run build
             cd ..
-            cd .circleci/ansible/files
+            cd .circleci/ansible
+            mkdir files
+            cd files
             tar -C ../../../backend -czvf artifact.tar.gz .
             cd ../
       - run:
