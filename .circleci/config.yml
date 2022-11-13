@@ -331,7 +331,7 @@ jobs:
 
   smoke-test:
     docker:
-      - image: cimg/python:3.11.0-node  
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       - attach_workspace:
