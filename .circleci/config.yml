@@ -306,6 +306,8 @@ jobs:
       - install-ansible
       - restore_cache:
           keys: [backend-build]
+      - attach_workspace:
+          at: ~/
       - run:
           name: install tsc
           command: |
