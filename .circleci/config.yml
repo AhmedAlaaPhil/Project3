@@ -216,7 +216,7 @@ jobs:
       - install-ansible
       - install-node
       - add_ssh_keys:
-          fingerprints: ["7b:24:6a:c4:2e:2e:d4:4b:52:49:0b:19:de:90:af:59"] 
+          fingerprints: ["94:63:3a:b3:0b:0b:4c:25:80:6e:53:25:44:da:67:72"] 
       - attach_workspace:
           at: ~/
       - run:
@@ -272,7 +272,7 @@ jobs:
       - restore_cache:
           keys: [frontend-build]
       - add_ssh_keys:
-          fingerprints: ["7b:24:6a:c4:2e:2e:d4:4b:52:49:0b:19:de:90:af:59"]
+          fingerprints: ["94:63:3a:b3:0b:0b:4c:25:80:6e:53:25:44:da:67:72"]
       - run:
           name: Install dependencies
           command: |
@@ -313,7 +313,7 @@ jobs:
            tsc --init
            echo tsc --version
       - add_ssh_keys:
-          fingerprints: ["7b:24:6a:c4:2e:2e:d4:4b:52:49:0b:19:de:90:af:59"] 
+          fingerprints: ["94:63:3a:b3:0b:0b:4c:25:80:6e:53:25:44:da:67:72"] 
       - attach_workspace:
           at: ~/
       - run:
@@ -328,9 +328,6 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            export TYPEORM_MIGRATIONS_DIR=./migrations
-            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
-            export TYPEORM_MIGRATIONS=./migrations/*.ts
 
             cd .circleci/ansible
             cat inventory.txt
