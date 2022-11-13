@@ -269,6 +269,8 @@ jobs:
       - checkout
       - install-awscli
       - install-node
+      - restore_cache:
+          keys: [frontend-build]
       - add_ssh_keys:
           fingerprints: ["7b:24:6a:c4:2e:2e:d4:4b:52:49:0b:19:de:90:af:59"]
       - run:
@@ -302,6 +304,8 @@ jobs:
       - checkout
       - install-awscli
       - install-ansible
+      - restore_cache:
+          keys: [backend-build]
       - run:
           name: install tsc
           command: |
@@ -313,21 +317,26 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Deploy backend
+          name: Package Backend
           command: |
             cd backend
-            npm i
             npm run build
             tar -czf artifact.tar.gz dist/* package*
+
             cd ..
             cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
+      - run:
+          name: Deploy backend
+          command: |
             export TYPEORM_MIGRATIONS_DIR=./migrations
             export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
             export TYPEORM_MIGRATIONS=./migrations/*.ts
-            cat ~/project/.circleci/ansible/inventory.txt
-            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
-      # Here's where you will add some code to rollback on failure  
-      - destroy_environment  
+
+            cd .circleci/ansible
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml 
+            - destroy_environment  
+            - revert-migrations 
 
   smoke-test:
     docker:
