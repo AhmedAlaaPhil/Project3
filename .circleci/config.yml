@@ -326,8 +326,7 @@ jobs:
             cd .circleci/ansible
             mkdir files
             cd files
-            cd ../../../backend
-            tar -czvf artifact.tar.gz .
+            tar -C ../../../backend -czvf artifact.tar.gz .
             cd ../
       - run:
           name: Deploy backend
