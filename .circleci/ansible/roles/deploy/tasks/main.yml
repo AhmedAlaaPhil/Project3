@@ -1,10 +1,4 @@
 ---
-- name: "set env var"
-  shell: |
-    export TYPEORM_MIGRATIONS_DIR=./migrations
-    export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
-    export TYPEORM_MIGRATIONS=./migrations/*.ts
-
 - name: "Creates backend app directory"
   file:
     path: ~/backend-app
@@ -29,8 +23,7 @@
     
     npm run build
     pm2 stop default 
-    pm2 start -f ./dist/main.js -- --port 3030
-    
+    pm2 start -f ./dist/main.js 
   register: execute_node
 
 - name: print message
