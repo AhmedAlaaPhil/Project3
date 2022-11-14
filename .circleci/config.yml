@@ -327,7 +327,7 @@ jobs:
             mkdir files
             cd files
             cd ../../../backend
-            tar -C -czvf artifact.tar.gz .
+            tar -czvf artifact.tar.gz .
             cd ../
       - run:
           name: Deploy backend
