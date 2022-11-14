@@ -322,13 +322,11 @@ jobs:
             cd backend
             npm i
             npm run build
+            tar -C backend -czvf artifact.tar.gz .
             cd ..
             cd .circleci/ansible
             mkdir files
             cd files
-            cd ..
-            cd backend
-            tar -C backend -czvf artifact.tar.gz .
             cd ../
       - run:
           name: Deploy backend
