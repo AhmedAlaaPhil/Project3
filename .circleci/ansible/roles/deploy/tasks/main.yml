@@ -23,18 +23,15 @@
 - name: "Executing Node app with PM2"
   shell: |
     cd ~/backend-app/dist
-    cd ../
-    npm install
-    
-    npm run build
-    pm2 stop default 
-    pm2 start -f ./dist/main.js --node-args="--VERSION=1"
+    pm2 stop default
+    pm2 start main.js
 
   register: execute_node
 
 - name: print message
   debug:
     msg: "{{ execute_node.stdout_lines }}"
+
 
 - name: "Configure pm2 to start as service"
   become: true
