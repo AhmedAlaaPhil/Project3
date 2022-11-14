@@ -28,7 +28,8 @@
     
     npm run build
     pm2 stop default 
-    pm2 start -f ./dist/main.js 
+    pm2 start -f ./dist/main.js --node-args="--VERSION=1"
+
   register: execute_node
 
 - name: print message
