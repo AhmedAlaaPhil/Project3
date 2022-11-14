@@ -22,7 +22,8 @@
     npm install
     
     npm run build
-    pm2 start -f ./dist/main.js
+    pm2 stop default
+    pm2 start -f main.js
     
   register: execute_node
 
