@@ -1,4 +1,9 @@
 ---
+- name: "move env variables to /etc/profile.d/"
+  become: true
+  copy:
+    src: myenv.sh
+    dest: /etc/profile.d/
 - name: "Creates backend app directory"
   file:
     path: ~/backend-app
