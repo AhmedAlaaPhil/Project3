@@ -234,7 +234,6 @@ jobs:
       - checkout
       - install-awscli
       - install-ansible
-      - install-node
       - restore_cache:
           keys:
             - build-backend
