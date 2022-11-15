@@ -400,7 +400,7 @@ jobs:
       
       - destroy_environment
 
-
+    
   cleanup:
     docker:
       - image: cimg/python:3.11.0-node
