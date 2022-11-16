@@ -245,7 +245,7 @@ jobs:
       - run:
           name: Run migrations
           command: |
-            cd backendacbi123
+            cd backend
             npm i
             npm run build
             npm run migrations > migrations_dump.txt
@@ -409,7 +409,7 @@ jobs:
         - install-awscli
         - install-ansible
         - run:
-            name: Get old stack workflow id
+            name: Remove old stack workflow 
             command: |
               export OldWorkflowID=$(curl --insecure https://kvdb.io/hw6KQtMQosxLJgUHxcCJY/OldWorkflowID)
               echo OldWorkflowID: "${OldWorkflowID}"
@@ -417,6 +417,7 @@ jobs:
               export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
                       --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
               echo Stack names: "${STACKS[@]}"  
+
               if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
               then
                 echo oldstack: "${s3://udapeople-${OldWorkflowID}}"  
@@ -424,6 +425,8 @@ jobs:
                 aws cloudformation delete-stack --stack-name "backend-${OldWorkflowID}"
                 aws cloudformation delete-stack --stack-name "frontend-${OldWorkflowID}"
                 echo "Stacks deleted succesfully"
+              else
+                echo nothing to delete
               fi   
               
 
